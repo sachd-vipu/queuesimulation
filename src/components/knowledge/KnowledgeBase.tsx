@@ -1,7 +1,13 @@
 import React, { useState, ReactNode } from 'react';
 import { useTheme } from '../../contexts/ThemeContext';
-import Latex from 'react-latex';
+import ReactLatex from 'react-latex';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
+
+// Create a wrapper component for Latex with type assertion
+const Latex: React.FC<{ children: string }> = ({ children }) => {
+  const LatexComponent = ReactLatex as any;
+  return <LatexComponent>{children}</LatexComponent>;
+};
 
 interface Section {
   title: string;
