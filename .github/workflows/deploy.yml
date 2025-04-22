@@ -39,11 +39,28 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
-          mkdir -p website/projects/queuesimulation
-          cp -r dist/* website/projects/queuesimulation/
           cd website
+          # Create projects folder if it doesn't exist
+          if [ ! -d "projects" ]; then
+            mkdir projects
+          fi
+          # Create or clean queuesimulation folder
+          if [ -d "projects/queuesimulation" ]; then
+            rm -rf projects/queuesimulation/*
+          else
+            mkdir projects/queuesimulation
+          fi
+          # Copy new files
+          cp -r ../dist/* projects/queuesimulation/
+          # Configure git
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
+          # Add changes
           git add projects/queuesimulation
-          git commit -m "Update queue simulation project"
-          git push https://${{ secrets.PAT_TOKEN }}@github.com/sachd-vipu/vipulsachdeva.tech.git main 
+          # Only commit if there are changes
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update queue simulation project"
+            git push https://${{ secrets.PAT_TOKEN }}@github.com/sachd-vipu/vipulsachdeva.tech.git main
+          fi 
