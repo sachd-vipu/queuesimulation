@@ -25,13 +25,6 @@ This project is automatically deployed to the personal website using GitHub Acti
 
 ### Required GitHub Secrets
 
-For the personal website deployment, the following secrets need to be set in the GitHub repository:
 
-- `HOST`: Your server hostname
-- `USERNAME`: SSH username
-- `SSH_PRIVATE_KEY`: SSH private key for authentication
-
-## License
-
-MIT
+- `PAT_TOKEN`: Token(classic)
 
