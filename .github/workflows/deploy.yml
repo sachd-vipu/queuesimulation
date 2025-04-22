@@ -32,16 +32,18 @@ jobs:
         with:
           repository: sachd-vipu/vipulsachdeva.tech
           ref: main
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT_TOKEN }}
           path: website
 
       - name: Deploy to Website
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           mkdir -p website/projects/queuesimulation
           cp -r dist/* website/projects/queuesimulation/
           cd website
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git add projects/queuesimulation
           git commit -m "Update queue simulation project"
-          git push 
+          git push https://${{ secrets.PAT_TOKEN }}@github.com/sachd-vipu/vipulsachdeva.tech.git main 
