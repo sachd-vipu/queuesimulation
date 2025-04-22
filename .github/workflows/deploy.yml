@@ -13,7 +13,7 @@ jobs:
       - name: Checkout Simulation Repo
         uses: actions/checkout@v3
         with:
-          repository: sachd-vipu/Q-Net-Sim
+          repository: sachd-vipu/queuesimulation
           ref: main
 
       - name: Setup Node.js
